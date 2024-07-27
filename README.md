@@ -1,2 +1,2 @@
-# ComfyUI-WorkFows
-ComfyUI WorkFows
+# ComfyUI-WorkFlows
+ComfyUI WorkFlows
