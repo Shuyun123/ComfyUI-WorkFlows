@@ -1,0 +1,697 @@
+{
+  "last_node_id": 20,
+  "last_link_id": 16,
+  "nodes": [
+    {
+      "id": 13,
+      "type": "Note",
+      "pos": {
+        "0": 486,
+        "1": 1285
+      },
+      "size": {
+        "0": 311.87054443359375,
+        "1": 108.88408660888672
+      },
+      "flags": {
+        "collapsed": false
+      },
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "text": ""
+      },
+      "widgets_values": [
+        "Import garment image here."
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 8,
+      "type": "Note",
+      "pos": {
+        "0": 495,
+        "1": 383
+      },
+      "size": {
+        "0": 311.87054443359375,
+        "1": 108.88408660888672
+      },
+      "flags": {
+        "collapsed": false
+      },
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "text": ""
+      },
+      "widgets_values": [
+        "Import person image here, and then either:\n- create a mask in the mask editor (right click - open in mask editor) around the area where the garment should appear, or\n- use the provided segment anything group"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 9,
+      "type": "GroundingDinoModelLoader (segment anything)",
+      "pos": {
+        "0": 442,
+        "1": 1726
+      },
+      "size": {
+        "0": 380.6546630859375,
+        "1": 91.39691162109375
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 3,
+      "inputs": [
+        {
+          "name": "onTrigger",
+          "type": -1,
+          "link": null,
+          "optional": true,
+          "nameLocked": true,
+          "label": "onTrigger"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "GROUNDING_DINO_MODEL",
+          "type": "GROUNDING_DINO_MODEL",
+          "links": [
+            6
+          ],
+          "slot_index": 0,
+          "shape": 3,
+          "label": "GROUNDING_DINO_MODEL"
+        },
+        {
+          "name": "onExecuted",
+          "type": -1,
+          "links": null,
+          "optional": true,
+          "nameLocked": true,
+          "label": "onExecuted"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "GroundingDinoModelLoader (segment anything)"
+      },
+      "widgets_values": [
+        "GroundingDINO_SwinT_OGC (694MB)"
+      ]
+    },
+    {
+      "id": 19,
+      "type": "Reroute",
+      "pos": {
+        "0": 954.7053833007812,
+        "1": 474.5730285644531
+      },
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 13,
+          "label": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "IMAGE",
+          "links": [
+            14,
+            15,
+            16
+          ],
+          "slot_index": 0,
+          "label": ""
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 10,
+      "type": "GroundingDinoSAMSegment (segment anything)",
+      "pos": {
+        "0": 919,
+        "1": 1642
+      },
+      "size": {
+        "0": 352.79998779296875,
+        "1": 142
+      },
+      "flags": {},
+      "order": 9,
+      "mode": 3,
+      "inputs": [
+        {
+          "name": "sam_model",
+          "type": "SAM_MODEL",
+          "link": 7,
+          "slot_index": 0,
+          "label": "sam_model"
+        },
+        {
+          "name": "grounding_dino_model",
+          "type": "GROUNDING_DINO_MODEL",
+          "link": 6,
+          "label": "grounding_dino_model"
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 15,
+          "label": "image"
+        },
+        {
+          "name": "onTrigger",
+          "type": -1,
+          "link": null,
+          "optional": true,
+          "nameLocked": true,
+          "label": "onTrigger"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            11
+          ],
+          "slot_index": 0,
+          "shape": 3,
+          "label": "IMAGE"
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            8
+          ],
+          "slot_index": 1,
+          "shape": 3,
+          "label": "MASK"
+        },
+        {
+          "name": "onExecuted",
+          "type": -1,
+          "links": null,
+          "optional": true,
+          "nameLocked": true,
+          "label": "onExecuted"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "GroundingDinoSAMSegment (segment anything)"
+      },
+      "widgets_values": [
+        "jeans",
+        0.31
+      ]
+    },
+    {
+      "id": 17,
+      "type": "PreviewImage",
+      "pos": {
+        "0": 1417,
+        "1": 1577
+      },
+      "size": {
+        "0": 300.38177490234375,
+        "1": 425.5954895019531
+      },
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 11,
+          "label": "images"
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 6,
+      "type": "PreviewImage",
+      "pos": {
+        "0": 1762,
+        "1": 576
+      },
+      "size": {
+        "0": 476.37603759765625,
+        "1": 733.921142578125
+      },
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 5,
+          "label": "images"
+        }
+      ],
+      "outputs": [],
+      "title": "Original Garment Reference",
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 11,
+      "type": "SAMModelLoader (segment anything)",
+      "pos": {
+        "0": 442,
+        "1": 1535
+      },
+      "size": {
+        "0": 395.9155578613281,
+        "1": 124.83930969238281
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 3,
+      "inputs": [
+        {
+          "name": "onTrigger",
+          "type": -1,
+          "link": null,
+          "optional": true,
+          "nameLocked": true,
+          "label": "onTrigger"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SAM_MODEL",
+          "type": "SAM_MODEL",
+          "links": [
+            7
+          ],
+          "shape": 3,
+          "label": "SAM_MODEL"
+        },
+        {
+          "name": "onExecuted",
+          "type": -1,
+          "links": null,
+          "optional": true,
+          "nameLocked": true,
+          "label": "onExecuted"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SAMModelLoader (segment anything)"
+      },
+      "widgets_values": [
+        "sam_hq_vit_h (2.57GB)"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "Note",
+      "pos": {
+        "0": 875,
+        "1": 930
+      },
+      "size": {
+        "0": 301.2690734863281,
+        "1": 140.8996124267578
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "text": ""
+      },
+      "widgets_values": [
+        "- Keep Mask Grow low-ish\n- Mixed precision fp16 is faster and a good middle ground, fp32 is more precise but slower\n- Steps 40+\n- CFG 2.5-3 are the better values, the higher it is the closer to the garment the generation will be."
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 2,
+      "type": "CatVTONWrapper",
+      "pos": {
+        "0": 880,
+        "1": 590
+      },
+      "size": {
+        "0": 315,
+        "1": 218
+      },
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 14,
+          "label": "image"
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 8,
+          "label": "mask"
+        },
+        {
+          "name": "refer_image",
+          "type": "IMAGE",
+          "link": 2,
+          "label": "refer_image"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            4
+          ],
+          "slot_index": 0,
+          "shape": 3,
+          "label": "image"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CatVTONWrapper"
+      },
+      "widgets_values": [
+        30,
+        "fp16",
+        435739222540580,
+        "randomize",
+        50,
+        2.7
+      ]
+    },
+    {
+      "id": 3,
+      "type": "LoadImage",
+      "pos": {
+        "0": 487,
+        "1": 548
+      },
+      "size": {
+        "0": 315,
+        "1": 314
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            13
+          ],
+          "slot_index": 0,
+          "shape": 3,
+          "label": "IMAGE"
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [],
+          "slot_index": 1,
+          "shape": 3,
+          "label": "MASK"
+        }
+      ],
+      "title": "Load Person and Mask the area here",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "微信图片_20241117172606.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "LoadImage",
+      "pos": {
+        "0": 484,
+        "1": 914
+      },
+      "size": {
+        "0": 315,
+        "1": 314
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            2,
+            5
+          ],
+          "slot_index": 0,
+          "shape": 3,
+          "label": "IMAGE"
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3,
+          "label": "MASK"
+        }
+      ],
+      "title": "Load Garment Here",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "panda_t_shirt.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "PreviewImage",
+      "pos": {
+        "0": 2271,
+        "1": 575
+      },
+      "size": {
+        "0": 524.3834838867188,
+        "1": 707.3837890625
+      },
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 4,
+          "label": "images"
+        }
+      ],
+      "outputs": [],
+      "title": "VTON Result",
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 20,
+      "type": "PreviewImage",
+      "pos": {
+        "0": 1246,
+        "1": 581
+      },
+      "size": {
+        "0": 485.542724609375,
+        "1": 721.323974609375
+      },
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 16,
+          "label": "images"
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    }
+  ],
+  "links": [
+    [
+      2,
+      4,
+      0,
+      2,
+      2,
+      "IMAGE"
+    ],
+    [
+      4,
+      2,
+      0,
+      5,
+      0,
+      "IMAGE"
+    ],
+    [
+      5,
+      4,
+      0,
+      6,
+      0,
+      "IMAGE"
+    ],
+    [
+      6,
+      9,
+      0,
+      10,
+      1,
+      "GROUNDING_DINO_MODEL"
+    ],
+    [
+      7,
+      11,
+      0,
+      10,
+      0,
+      "SAM_MODEL"
+    ],
+    [
+      8,
+      10,
+      1,
+      2,
+      1,
+      "MASK"
+    ],
+    [
+      11,
+      10,
+      0,
+      17,
+      0,
+      "IMAGE"
+    ],
+    [
+      13,
+      3,
+      0,
+      19,
+      0,
+      "*"
+    ],
+    [
+      14,
+      19,
+      0,
+      2,
+      0,
+      "IMAGE"
+    ],
+    [
+      15,
+      19,
+      0,
+      10,
+      2,
+      "IMAGE"
+    ],
+    [
+      16,
+      19,
+      0,
+      20,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [
+    {
+      "title": "Segment Anything (Optional)",
+      "bounding": [
+        411,
+        1434,
+        887,
+        410
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "CatVTON",
+      "bounding": [
+        409,
+        235,
+        2607,
+        1304
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.6588450000000007,
+      "offset": [
+        108.75987877363568,
+        20.203097927793088
+      ]
+    },
+    "workspace_info": {
+      "id": "lUU_P9UlRMIma8J8fure2"
+    }
+  },
+  "version": 0.4
+}
